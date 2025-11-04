@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: demo2
+  datasource:
+    url: jdbc:mysql://localhost:3306/store?createDatabaseIfNotExist=true
+    username: root
+    password: P@ssword
+  jpa:
+    show-sql: true
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+server:
+  port: 8080
+
