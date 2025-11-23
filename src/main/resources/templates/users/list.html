@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User List</title>
+    <!-- External stylesheets -->
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/list.css}">
+</head>
+<body>
+    <h1>User Management System</h1>
+
+    <!-- Success/Error Messages using Thymeleaf conditional rendering -->
+    <div th:if="${successMessage}" class="message success">
+        ✓ <span th:text="${successMessage}"></span>
+    </div>
+
+    <div th:if="${errorMessage}" class="message error">
+        ✗ <span th:text="${errorMessage}"></span>
+    </div>
+
+    <!-- Controls Section -->
+    <div class="controls">
+        <a href="/ui/users/new" class="btn btn-primary">+ Add New User</a>
+
+        <span style="margin-left: 20px;">Sort by:</span>
+        <!-- Thymeleaf URL building with parameters -->
+        <a th:href="@{/ui/users(sort='name')}" class="btn btn-secondary">Name</a>
+        <a th:href="@{/ui/users(sort='email')}" class="btn btn-secondary">Email</a>
+        <a th:href="@{/ui/users(sort='id')}" class="btn btn-secondary">ID</a>
+
+        <span style="margin-left: 20px;"></span>
+        <a th:href="@{/change-password}" class="btn btn-warning">Change Password</a>
+        <a th:href="@{/logout}" class="btn btn-danger">Logout</a>
+    </div>
+
+    <!-- Users Table - Shows only if users exist -->
+    <div th:if="${!users.isEmpty()}">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Thymeleaf iteration over users list -->
+                <tr th:each="user : ${users}">
+                    <!-- Thymeleaf variable expressions -->
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.name}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td>
+                        <span th:if="${user.active}" style="color: green; font-weight: bold;">✓ Active</span>
+                        <a th:href="@{/ui/users/{id}(id=${user.id})}" class="btn btn-info">View</a>
+                        <a th:href="@{/ui/users/{id}/edit(id=${user.id})}" class="btn btn-warning">Edit</a>
+
+                        <!-- Activate/Deactivate buttons based on status -->
+                        <form th:if="${!user.active}" th:action="@{/ui/users/{id}/activate(id=${user.id})}" method="post" style="display:inline;">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger"
+                                    onclick="return confirm('Delete this user?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Empty State - Shows only if no users exist -->
+    <div th:if="${users.isEmpty()}" class="empty-message">
+        <h3>No users found</h3>
+        <p>Click "Add New User" to create your first user.</p>
+    </div>
+
+</body>
+</html>
+
