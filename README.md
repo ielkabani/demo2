@@ -1,11 +1,13 @@
 # User Management System
 
+![CI Status](https://github.com/ielkabani/demo2/workflows/CI%20-%20Build%20and%20Test/badge.svg)
+
 A complete Spring Boot application with REST APIs, authentication, and a modern web interface built with Thymeleaf and Bootstrap 5.
 
 ## Quick Start
 
 ### Prerequisites
-- Java 24
+- Java 17
 - MySQL Server (localhost:3306)
 - Maven (or use included Maven wrapper)
 
