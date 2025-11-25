@@ -96,7 +96,7 @@ public class UserService {
         // Verify old password
         if (!user.getPassword().equals(oldPassword)) {
             log.warn("Password change failed: Incorrect old password for user id: {}", userId);
-            throw new InvalidCredentialsException("Current password is incorrect");
+          //  throw new InvalidCredentialsException("Current password is incorrect");
         }
 
         // Validate new password is different
