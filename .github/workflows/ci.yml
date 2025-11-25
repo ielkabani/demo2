@@ -3,9 +3,9 @@ name: CI - Build and Test
 # Trigger the workflow on push or pull request
 on:
   push:
-    branches: [ main, master, develop, db-migration ]
+    branches: [ main, master, db-migration ]
   pull_request:
-    branches: [ main, master, develop ]
+    branches: [ main, master ]
 
 jobs:
   build-and-test:
